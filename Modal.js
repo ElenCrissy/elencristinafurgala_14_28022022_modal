@@ -4,8 +4,7 @@ import styles from './modal.module.css';
 
 const Modal = ({ modalStyle, children, show, onClose, backdropStyle }) => {
     const modalRef = useRef(null);
-    useEffect(
-        () => {
+    useEffect(() => {
             if (show) {
                 modalRef.current.classList.add(styles.visible);
             }
