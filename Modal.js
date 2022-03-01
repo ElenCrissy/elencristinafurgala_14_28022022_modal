@@ -1,15 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styles from './modal.module.css';
-
-const ModalWrapper = styled.div`
-    #closeIcon{
-      height: 30px;
-      width: 30px;
-    }
-`
-
 
 const Modal = ({ modalStyle, children, show, onClose, backdropStyle }) => {
     const modalRef = useRef(null);
@@ -21,13 +12,9 @@ const Modal = ({ modalStyle, children, show, onClose, backdropStyle }) => {
             else {
                 modalRef.current.classList.remove(styles.visible);
             }
-        },
-        [
-            show
-        ]
-    );
+        }, [show]);
     return (
-        <ModalWrapper ref={modalRef} style={backdropStyle} className={`${styles.modalwrapper}`}>
+        <div ref={modalRef} style={backdropStyle} className={`${styles.modalWrapper}`}>
             <FontAwesomeIcon
                 icon="fa-solid fa-circle-xmark"
                 className={styles.closeIcon}
@@ -36,11 +23,8 @@ const Modal = ({ modalStyle, children, show, onClose, backdropStyle }) => {
             <div style={modalStyle} className={styles.modal}>
                 {children}
             </div>
-        </ModalWrapper>
+        </div>
     );
 };
 
 export default Modal;
-// module.exports = {
-//     Modal
-// }
