@@ -57,13 +57,31 @@ const ModalContent = styled.div`
   }
 `
 
-const Modal = ({ children, open, onClose }) => {
-    if(!open) return null
+const Modal = ({ app, children, open, onClose }) => {
+    if(!open) {
+        app.setAttribute("aria-hidden", "false")
+        document.body.style.overflow = 'scroll'
+        return null
+    }
+
+    if(open){
+        app.setAttribute("aria-hidden", "true")
+        document.body.style.overflow = 'hidden'
+    }
+
+    document.onkeydown = (e) =>{
+        if(e.key === "Escape"){
+            onClose()
+        }
+    }
 
     return ReactDOM.createPortal(
         <ModalWrapper
             onClick={onClose}>
-            <ModalContent onClick={(e) => e.stopPropagation()}>
+            <ModalContent
+                onClick={(e) => e.stopPropagation()}
+                id={'modal'}
+            >
                 {children}
                 <FontAwesomeIcon
                     icon={faCircleXmark}
